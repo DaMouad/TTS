@@ -1,5 +1,5 @@
 from fileinput import filename
-from flask import Flask , redirect , url_for , render_template , request
+from flask import Flask , redirect , url_for , render_template , request ,Response
 import os
 from pydub import AudioSegment
 import tkinter as tk
@@ -59,27 +59,23 @@ def get_large_audio_transcription(path):
     if os.path.exists(folder_name):
         shutil.rmtree(folder_name)
     return whole_text
-
+    
 
 def transcript(filename):
    
    
-    i=0
     if os.path.splitext(filename)[1] != ".wav":
         sound_file=os.path.splitext(filename)[0]+".wav"
         sound = AudioSegment.from_file(filename)
         out_ =sound.export(sound_file, format="wav")
+        
         out_.close() 
-        i=1
     else:
         sound_file=filename
         
     output=get_large_audio_transcription(sound_file)
 
-    if i==1:
-        if os.path.exists(sound_file):
-            os.remove(sound_file) 
-    return output 
+    return output , sound_file.replace('sounds/', '')
 
 
 app=Flask(__name__)
@@ -90,15 +86,27 @@ def page():
 
 @app.route("/convert",methods=["POST","GET"])
 def convert():
+    
     if request.method=="POST":
-        aud = request.form["audio_url"] 
         f = request.files["audio_file"] 
         print(f)
         f.save(secure_filename("sounds/"+f.filename))
-        res  = transcript(("sounds/"+secure_filename(f.filename)))
+        res   = transcript(("sounds/"+secure_filename(f.filename)))[0]
+        global fil 
+        fil = transcript(("sounds/"+secure_filename(f.filename)))[1]
         print(type(f))
-   
-        return render_template("convert.html" , output=res , file=aud) 
 
+        return render_template("convert.html" , output=res , file=fil)
+
+@app.route("/wav")
+def streamwav(): 
+    def generate(): 
+        with open("sounds/"+fil, "rb") as fwav:
+            data = fwav.read(1024)
+            while data:
+                yield data
+                data = fwav.read(1024)
+    return Response(generate(), mimetype="audio/x-wav")
+    
 if __name__ == "__main__":
     app.run(debug=True)

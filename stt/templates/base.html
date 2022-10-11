@@ -26,8 +26,8 @@
             <label id="upload">Upload File</label>
             <input type="file" name="audio_file" id="fileUpload" accept="audio/*"/>
             <div id="aud"> 
-                <audio src="" controls id="audio"></audio>
-                <input type="text" name="audio_url" id="hidden" hidden value="{{file}}">
+                <audio src="http://localhost:5000/wav"   controls id="audio"></audio>
+                <input type="text" name="audio_url" id="hidden"  value="{{file}}">
                 <button type="submit" id="convert"> Convert </button> 
             </div> 
         </form>
@@ -48,11 +48,11 @@
         "change", 
         () => { 
             i++;
-          var files=uploadInput.files;
-          console.log(JSON.stringify(files[0])); 
-          hidden.value =JSON.stringify(files[0]);
-          audio.src = URL.createObjectURL(files[0]);
-          console.log(typeof files[0])
+          var files=uploadInput.files; 
+          console.log(JSON.stringify(files[0]));  
+        //   hidden.value =JSON.stringify(files[0]);
+          audio.src = URL.createObjectURL(files[0]); 
+          console.log(typeof files[0]) 
           
           }); 
 </script> 
