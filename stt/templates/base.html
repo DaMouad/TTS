@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech To Text-STT</title>
+    
+    <link rel="stylesheet" href="/static/style.css">
+    
+</head>
+<style>
+    
+</style>
+<body>
+    <div class="background"></div>
+    <div class="content"> 
+        <div class="header"> </div>
+        <div class="title">
+        <p class="h1">Convert Your Audio</p>
+        <p class="h2">To Text</p>
+        <p class="desc">transcribe your audio to text in one click</p>
+    </div>
+
+    <div class="magic">
+        <form action = "/convert" method = "POST" enctype = "multipart/form-data">
+            <label id="upload">Upload File</label>
+            <input type="file" name="audio_file" id="fileUpload" accept="audio/*"/>
+            <div id="aud"> 
+                <audio src="" controls id="audio"></audio>
+                <input type="text" name="audio_url" id="hidden" hidden value="{{file}}">
+                <button type="submit" id="convert"> Convert </button> 
+            </div> 
+        </form>
+        {% block content %}  {% endblock %}
+        
+    </div>
+    </div>
+    
+</body>
+<script>
+    const audio = document.getElementById("audio");
+    const hidden=document.getElementById("hidden");
+    var i =0;
+    const uploadInput = document.getElementById("fileUpload"); 
+    const convert = document.getElementById("convert"); 
+
+      uploadInput.addEventListener(
+        "change", 
+        () => { 
+            i++;
+          var files=uploadInput.files;
+          console.log(JSON.stringify(files[0])); 
+          hidden.value =JSON.stringify(files[0]);
+          audio.src = URL.createObjectURL(files[0]);
+          console.log(typeof files[0])
+          
+          }); 
+</script> 
+</html> 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech To Text-STT</title>
+    <link rel="stylesheet" href="page.css">
+  
+</head>
+<body>
+    <div class="background"></div>
+    <div class="content"> 
+        <div class="header"> </div>
+        <div class="title">
+        <p class="h1">Convert Your Audio</p>
+        <p class="h2">To Text</p>
+        <p class="desc">transcribe your audio to text in one click</p>
+    </div>
+
+    <div class="magic">
+            <label id="upload">Upload File</label>
+            <input type="file" id="fileUpload" accept="audio/*"/>
+            <div id="aud">
+            <audio controls id="audio"></audio>
+            <button id="convert"> Convert </button>
+                </div>
+            <p id="converted_text"> She nervously peered over the edge. She understood in her mind that the view was supposed to be beautiful, but all she felt was fear. There had always been something about heights that disturbed her, and now she could feel the full force of this unease. She reluctantly crept a little closer with the encouragement of her friends as the fear continued to build. She couldn't help but feel that something horrible was about to happen.
+                I'm meant to be writing at this moment. What I mean is, I'm meant to be writing something else at this moment. The document I'm meant to be writing is, of course, open in another program on my computer and is patiently awaiting my attention. Yet here I am plonking down senseless sentiments in this paragraph because it's easier to do than to work on anything particularly meaningful. I am grateful for the distraction.
+                The lone lamp post of the one-street town flickered, not quite dead but definitely on its way out. Suitcase by her side, she paid no heed to the light, the street or the town. A car was coming down the street and with her arm outstretched and thumb in the air, she had a plan.
+                It was hidden under the log beside the stream. It had been there for as long as Jerry had been alive. He wasn't sure if anyone besides him and his friends knew of its existence. He knew that anyone could potentially find it, but it was well enough hidden that it seemed unlikely to happen. The fact that it had been there for more than 30 years attested to this. So it was quite a surprise when he found the item was missing.</p>
+
+    </div>
+    </div>
+
+    
+</body>
+<script>
+    const audio = document.getElementById("audio");
+    const uploadInput = document.getElementById("fileUpload");
+      uploadInput.addEventListener(
+        "change",
+        () => {
+            
+          var files=uploadInput.files;
+          console.log(URL.createObjectURL(files[0]));
+          audio.src = URL.createObjectURL(files[0]);
+          });
+
+</script>
+</html>

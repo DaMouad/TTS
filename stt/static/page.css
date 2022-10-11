@@ -1,0 +1,153 @@
+body{
+    
+    background-color: black;
+    
+margin:0;
+
+padding:0;
+
+}
+
+ /* .background{
+    content: '';
+    position: absolute;
+    background-image: url('imgs/bg3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    z-index: -5;
+    height: 100%;
+    width: 100%;}
+ */
+
+ 
+.content{
+    position:absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.h1{
+    position: relative;
+    word-spacing: 15px;
+    letter-spacing: 2px;
+    font-size: 80px;
+    color: #62b6cb;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+    margin-left:5em;
+    margin-bottom: 0;
+    margin-top: 2%;
+}
+.h2{
+    position: relative;
+    word-spacing: 15px;
+    letter-spacing: 5px;
+    font-size: 60px;
+    color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left:10.5em;
+  
+}
+.desc{
+    position: relative;
+    letter-spacing: 5px;
+    font-size: 20px;
+    color: gray;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 0;
+    margin-left:24em;
+  
+}
+
+.magic{
+    width: 80%;
+    height: 27em;
+    background-color: #007ea7;
+    margin-left: 10em;
+    box-shadow: 2px 4px 8px 0 rgba(255, 251, 251, 0.5);
+    border-radius: 8px; 
+    padding-top: 2em;
+    
+}
+.choose{
+    display: flex;
+    width: 100%;
+}
+#upload{
+    margin-left: 23%;
+    font-size: 30px;
+    padding: 5px;
+
+}
+input[type="file"]::file-selector-button {
+    border: 2px solid #6c5ce7;
+    padding: 0.2em 0.4em;
+    border-radius: 1em;
+    background-color: #a29bfe;
+    width: 20em;
+    height: 5em;
+    transition: 0.5s;
+    
+  }
+  #fileUpload{
+    margin-left: 10%;
+  }
+  input[type="file"]::-ms-browse:hover {
+    background-color: #81ecec;
+    border: 2px solid #00cec9; 
+  }
+  
+  input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #81ecec;
+    border: 2px solid #00cec9;
+  }
+  
+  input[type="file"]::file-selector-button:hover {
+    background-color: #81ecec;
+    border: 2px solid #00cec9;
+  }
+
+  #audio{
+    margin-left: 22em;
+    margin-top: 4em;
+    width: 35em;
+  }
+  #convert{
+    position: absolute;
+    background-color: #1B4965;
+    border: none;
+    color: white; 
+    padding: 15px 32px;
+    text-align: center;
+
+    text-decoration: none;
+    font-size: 25px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 38em;
+    margin-top: 2.5em;
+  }
+  #convert:hover{
+    background-color: #62B6CB;
+    color: #1B4965; 
+    padding: 17px 38px;
+  }
+  #aud{
+    display: inline-flex;
+    height: auto;
+  }
+
+#converted_text{
+    position: relative;
+    margin-left: 3em;
+    margin-right: 3em;
+    margin-top: 2em;
+    height: 9.5em;
+    overflow-y: scroll;
+    font-size: 20px;
+    color: #e8e9eb;
+}
