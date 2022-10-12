@@ -6,7 +6,7 @@
     <title>Speech To Text-STT</title>
     
     <link rel="stylesheet" href="/static/style.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
     
@@ -22,17 +22,17 @@
     </div>
 
     <div class="magic">
-        <form action = "/convert" method = "POST" enctype = "multipart/form-data">
+        <form method = "POST" id="upload_file" enctype = "multipart/form-data">
             <label id="upload">Upload File</label>
             <input type="file" name="audio_file" id="fileUpload" accept="audio/*"/>
             <div id="aud"> 
                 <audio src="http://localhost:5000/wav"   controls id="audio"></audio>
-                <input type="text" name="audio_url" id="hidden"  value="{{file}}">
-                <button type="submit" id="convert"> Convert </button> 
+                <input type="text" name="audio_url" id="hidden" hidden  value="{{output}}">
+                <button type="button" id="convert"> Convert </button> 
             </div> 
         </form>
+        <p id="converted_text" style="display: none;"> {{output}} </p>
         {% block content %}  {% endblock %}
-        
     </div>
     </div>
     
@@ -43,7 +43,7 @@
     var i =0;
     const uploadInput = document.getElementById("fileUpload"); 
     const convert = document.getElementById("convert"); 
-
+    const res=document.getElementById("converted_text");
       uploadInput.addEventListener(
         "change", 
         () => { 
@@ -52,8 +52,26 @@
           console.log(JSON.stringify(files[0]));  
         //   hidden.value =JSON.stringify(files[0]);
           audio.src = URL.createObjectURL(files[0]); 
-          console.log(typeof files[0]) 
+          console.log(typeof files[0]) ;
           
           }); 
+
+          $(function() {
+    $('#convert').click(function() {
+        var form_data = new FormData($('#upload_file')[0]);
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(output) {
+                res.style.display="block"
+                res.innerHTML=(output);
+            },
+        });
+    });
+}); 
 </script> 
 </html> 

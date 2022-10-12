@@ -1,5 +1,5 @@
 from fileinput import filename
-from flask import Flask , redirect , url_for , render_template , request ,Response
+from flask import Flask ,jsonify, redirect , url_for , render_template , request ,Response
 import os
 from pydub import AudioSegment
 import tkinter as tk
@@ -75,38 +75,26 @@ def transcript(filename):
         
     output=get_large_audio_transcription(sound_file)
 
-    return output , sound_file.replace('sounds/', '')
+    return output
 
 
 app=Flask(__name__)
 
-@app.route("/")
-def page():
-    return render_template("page.html")
+@app.route("/",methods=["POST","GET"])
 
-@app.route("/convert",methods=["POST","GET"])
-def convert():
-    
-    if request.method=="POST":
+
+def convert1():
+    if request.method=="POST": 
+        print("hhhhhhhhhhhhhhhh")
         f = request.files["audio_file"] 
-        print(f)
-        f.save(secure_filename("sounds/"+f.filename))
-        res   = transcript(("sounds/"+secure_filename(f.filename)))[0]
-        global fil 
-        fil = transcript(("sounds/"+secure_filename(f.filename)))[1]
-        print(type(f))
-
-        return render_template("convert.html" , output=res , file=fil)
-
-@app.route("/wav")
-def streamwav(): 
-    def generate(): 
-        with open("sounds/"+fil, "rb") as fwav:
-            data = fwav.read(1024)
-            while data:
-                yield data
-                data = fwav.read(1024)
-    return Response(generate(), mimetype="audio/x-wav")
+        print(f) 
+        f.save(secure_filename(f.filename))
+        res   = transcript((secure_filename(f.filename)))
     
+        print(res)
+        return Response(res)
+    else:
+        return render_template("base.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
